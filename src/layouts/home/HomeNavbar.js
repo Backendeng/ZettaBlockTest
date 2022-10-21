@@ -32,7 +32,7 @@ import MenuPopover from '../../components/MenuPopover';
 
 const MENU_LINKS = [
   { title: 'Home', icon: homeFill, href: '/' },
-  { title: 'Dashboard', icon: roundSpeed, href: PATH_HOME.dashboard }
+  { title: 'Go To Test', icon: roundSpeed, href: PATH_HOME.dashboard }
 ];
 
 const APP_BAR_MOBILE = 64;
@@ -168,10 +168,6 @@ export default function HomeNavbar() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Hidden mdDown>{renderMenuDesktop}</Hidden>
-
-          <Button variant="contained" target="_blank" href={PATH_HOME.purchase}>
-            Purchase Now
-          </Button>
 
           <Hidden mdUp>
             <MIconButton

@@ -90,23 +90,22 @@ export default function LandingHero() {
           <ContentStyle>
             <motion.div variants={varFadeInRight}>
               <Typography variant="h1" sx={{ color: 'common.white' }}>
-                Start a <br />
-                New Project <br /> with
                 <Typography
                   component="span"
                   variant="h1"
                   sx={{ color: 'primary.main' }}
                 >
-                  &nbsp;Minimal
+                  ZettaBLock
                 </Typography>
+                <br />
+                Angel Test Project
               </Typography>
             </motion.div>
 
             <motion.div variants={varFadeInRight}>
               <Typography sx={{ py: 5, color: 'common.white' }}>
-                The starting point for your next project based on
-                easy-to-customize Material-UI © helps you build apps faster and
-                better.
+                Let me know if it doesn't match your requirements. I will <br />
+                correct it immediately.
               </Typography>
             </motion.div>
 
@@ -119,23 +118,7 @@ export default function LandingHero() {
                 alignItems: 'center',
                 justifyContent: { xs: 'center', md: 'flex-start' }
               }}
-            >
-              <Box
-                component="img"
-                alt="sketch icon"
-                src="/static/icons/ic_sketch.svg"
-                sx={{ mr: 1, width: 20, height: 20 }}
-              />
-              <Link
-                color="inherit"
-                underline="always"
-                href={PATH_HOME.cloud}
-                target="_blank"
-                sx={{ color: 'common.white' }}
-              >
-                Preview in Sketch Cloud
-              </Link>
-            </Box>
+            />
 
             <motion.div variants={varFadeInRight}>
               <Button
@@ -145,7 +128,7 @@ export default function LandingHero() {
                 to={PATH_DASHBOARD.root}
                 startIcon={<Icon icon={flashFill} width={20} height={20} />}
               >
-                Live Preview
+                Go To Test
               </Button>
             </motion.div>
 
@@ -159,14 +142,6 @@ export default function LandingHero() {
             >
               <motion.img
                 variants={varFadeInRight}
-                src="/static/icons/ic_m_sketch.svg"
-              />
-              <motion.img
-                variants={varFadeInRight}
-                src="/static/icons/ic_m_figma.svg"
-              />
-              <motion.img
-                variants={varFadeInRight}
                 src="/static/icons/ic_m_material.svg"
               />
               <motion.img
@@ -176,10 +151,6 @@ export default function LandingHero() {
               <motion.img
                 variants={varFadeInRight}
                 src="/static/icons/ic_m_js.svg"
-              />
-              <motion.img
-                variants={varFadeInRight}
-                src="/static/icons/ic_m_ts.svg"
               />
             </Box>
           </ContentStyle>

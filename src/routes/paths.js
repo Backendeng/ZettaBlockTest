@@ -4,7 +4,7 @@ function path(root, sublink) {
   return `${root}${sublink}`;
 }
 
-const ROOTS_DASHBOARD = '/dashboard';
+const ROOTS_DASHBOARD = '/test';
 
 // ----------------------------------------------------------------------
 
@@ -18,8 +18,8 @@ export const PATH_HOME = {
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   general: {
-    pageOne: path(ROOTS_DASHBOARD, '/one'),
-    pageTwo: path(ROOTS_DASHBOARD, '/two'),
+    pageOne: path(ROOTS_DASHBOARD, '/tapone'),
+    pageTwo: path(ROOTS_DASHBOARD, '/taptwo'),
     pageThree: path(ROOTS_DASHBOARD, '/three')
   },
   app: {
