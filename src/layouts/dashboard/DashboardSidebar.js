@@ -127,10 +127,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           />
           <Box sx={{ ml: 2 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-              displayName
+              James Aoki
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              role
+              Frontend role
             </Typography>
           </Box>
         </AccountStyle>

@@ -34,33 +34,6 @@ const sidebarConfig = [
         icon: ICONS.page
       }
     ]
-  },
-
-  // APP
-  // ----------------------------------------------------------------------
-  {
-    subheader: 'app',
-    items: [
-      {
-        title: 'Drop',
-        href: PATH_DASHBOARD.app.root,
-        icon: ICONS.dashboard,
-        items: [
-          {
-            title: 'page Four',
-            href: PATH_DASHBOARD.app.pageFour
-          },
-          {
-            title: 'Page Five',
-            href: PATH_DASHBOARD.app.pageFive
-          },
-          {
-            title: 'Page Six',
-            href: PATH_DASHBOARD.app.pageSix
-          }
-        ]
-      }
-    ]
   }
 ];
 
