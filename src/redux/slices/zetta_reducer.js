@@ -67,7 +67,7 @@ export function getDatabyID(id) {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get(`${BackgroundAPI}apis/${id}`);
-      dispatch(slice.actions.getDataByIDSuccess(response.data));
+      await dispatch(slice.actions.getDataByIDSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -79,7 +79,10 @@ export function deleteDatabyID(id) {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.delete(`${BackgroundAPI}apis/${id}`);
-      dispatch(slice.actions.deleteDataByIDSuccess());
+      await dispatch(slice.actions.deleteDataByIDSuccess());
+      dispatch(slice.actions.startLoading());
+      const response1 = await axios.get(`${BackgroundAPI}apis`);
+      await dispatch(slice.actions.getDataSuccess(response1.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

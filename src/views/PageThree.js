@@ -28,6 +28,7 @@ import { LoadingButton } from '@material-ui/lab';
 // components
 import { MButton } from '../components/@material-extend';
 import Block from '../components/Block';
+import LoadingScreen from '../components/LoadingScreen';
 // components
 import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
@@ -44,7 +45,7 @@ function createData(name, calories, fat, carbs, protein) {
 
 export default function PageThree() {
   const dispatch = useDispatch();
-  const { allData, dataByID } = useSelector((state) => state.zetta);
+  const { allData, dataByID, isLoading } = useSelector((state) => state.zetta);
 
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
@@ -89,181 +90,106 @@ export default function PageThree() {
 
   return (
     <Page title="Tap One | ZettaBlock">
-      <Container maxWidth="xl">
-        <Typography variant="h3" component="h1" paragraph>
-          Step Two
-        </Typography>
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <Container maxWidth="xl">
+          <Typography variant="h3" component="h1" paragraph>
+            Step Three
+          </Typography>
 
-        <Card sx={{ mb: 3 }}>
-          <CardHeader title="show and update a user's info. click table row" />
-          <CardContent>
-            <Scrollbar>
-              <TableContainer sx={{ minWidth: 800, mt: 3 }}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>name</TableCell>
-                      <TableCell align="center">type</TableCell>
-                      <TableCell align="center">description</TableCell>
-                      <TableCell align="center">createdAt</TableCell>
-                      <TableCell align="center">updatedAt</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {allData.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        onClick={() => handleClickOpen(row.id)}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="center">{row.type}</TableCell>
-                        <TableCell align="center">{row.description}</TableCell>
-                        <TableCell align="center">{row.createdAt}</TableCell>
-                        <TableCell align="center">{row.updatedAt}</TableCell>
+          <Card sx={{ mb: 3 }}>
+            <CardHeader title="delete user, refresh table, adding loading screen" />
+            <CardContent>
+              <Scrollbar>
+                <TableContainer sx={{ minWidth: 800, mt: 3 }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>name</TableCell>
+                        <TableCell align="center">type</TableCell>
+                        <TableCell align="center">description</TableCell>
+                        <TableCell align="center">createdAt</TableCell>
+                        <TableCell align="center">updatedAt</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Scrollbar>
-          </CardContent>
-        </Card>
+                    </TableHead>
+                    <TableBody>
+                      {allData.map((row) => (
+                        <TableRow
+                          key={row.name}
+                          onClick={() => handleClickOpen(row.id)}
+                        >
+                          <TableCell component="th" scope="row">
+                            {row.name}
+                          </TableCell>
+                          <TableCell align="center">{row.type}</TableCell>
+                          <TableCell align="center">
+                            {row.description}
+                          </TableCell>
+                          <TableCell align="center">{row.createdAt}</TableCell>
+                          <TableCell align="center">{row.updatedAt}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Scrollbar>
+            </CardContent>
+          </Card>
 
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{dataByID.name} Info</DialogTitle>
-          <DialogContent>
-            <DialogContentText>No update api was provided.</DialogContentText>
-            <TextField
-              autoFocus
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label=""
-              name="name"
-              value={name}
-              onChange={handleNameChange}
-            />
-            <TextField
-              autoFocus
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label=""
-              name="type"
-              value={type}
-              onChange={handleTypeChange}
-            />
-            <TextField
-              autoFocus
-              rows={4}
-              fullWidth
-              multiline
-              margin="dense"
-              label=""
-              variant="outlined"
-              name="description"
-              value={description}
-              onChange={handleDescriptionChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="inherit">
-              Cancel
-            </Button>
-            <Button onClick={handleDelete} variant="contained" color="error">
-              Delete
-            </Button>
-            <Button onClick={handleClose} variant="contained">
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        <Grid container spacing={5}>
-          <Grid item xs={12} md={6}>
-            <Block title="Base">
-              <Button variant="outlined" color="inherit">
-                Default
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>{dataByID.name} Info</DialogTitle>
+            <DialogContent>
+              <DialogContentText>No update api was provided.</DialogContentText>
+              <TextField
+                autoFocus
+                fullWidth
+                type="text"
+                margin="dense"
+                variant="outlined"
+                label=""
+                name="name"
+                value={name}
+                onChange={handleNameChange}
+              />
+              <TextField
+                autoFocus
+                fullWidth
+                type="text"
+                margin="dense"
+                variant="outlined"
+                label=""
+                name="type"
+                value={type}
+                onChange={handleTypeChange}
+              />
+              <TextField
+                autoFocus
+                rows={4}
+                fullWidth
+                multiline
+                margin="dense"
+                label=""
+                variant="outlined"
+                name="description"
+                value={description}
+                onChange={handleDescriptionChange}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="inherit">
+                Cancel
               </Button>
-              <Button variant="outlined">Primary</Button>
-              <Button variant="outlined" disabled>
-                Disabled
+              <Button onClick={handleDelete} variant="contained" color="error">
+                Delete
               </Button>
-              <Button variant="outlined">Link</Button>
-            </Block>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Block title="Adding Colors">
-              <MButton variant="outlined" color="inherit">
-                Default
-              </MButton>
-              <MButton variant="outlined">Primary</MButton>
-              <MButton variant="outlined" color="info">
-                Info
-              </MButton>
-              <MButton variant="outlined" color="success">
-                Success
-              </MButton>
-              <MButton variant="outlined" color="warning">
-                Warning
-              </MButton>
-              <MButton variant="outlined" color="error">
-                Error
-              </MButton>
-            </Block>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Block title="With Icon & Loading">
-              <MButton
-                variant="outlined"
-                color="error"
-                startIcon={<AlarmIcon />}
-              >
-                Icon Left
-              </MButton>
-              <MButton variant="outlined" color="error" endIcon={<AlarmIcon />}>
-                Icon Right
-              </MButton>
-              <LoadingButton
-                pending
-                variant="outlined"
-                pendingPosition="start"
-                startIcon={<AlarmIcon />}
-              >
+              <Button onClick={handleClose} variant="contained">
                 Save
-              </LoadingButton>
-              <LoadingButton
-                pending
-                variant="outlined"
-                pendingPosition="end"
-                endIcon={<AlarmIcon />}
-              >
-                Save
-              </LoadingButton>
-            </Block>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Block title="Size">
-              <MButton variant="outlined" color="info" size="small">
-                Small
-              </MButton>
-              <MButton variant="outlined" color="info">
-                Medium
-              </MButton>
-              <MButton variant="outlined" color="info" size="large">
-                Large
-              </MButton>
-            </Block>
-          </Grid>
-        </Grid>
-      </Container>
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Container>
+      )}
     </Page>
   );
 }
