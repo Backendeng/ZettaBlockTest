@@ -24,13 +24,23 @@ const sidebarConfig = [
     subheader: 'general',
     items: [
       {
-        title: 'Tap One',
+        title: 'Step One',
         href: PATH_DASHBOARD.general.pageOne,
         icon: ICONS.page
       },
       {
-        title: 'Tap Two',
+        title: 'Step Two',
         href: PATH_DASHBOARD.general.pageTwo,
+        icon: ICONS.page
+      },
+      {
+        title: 'Step Three',
+        href: PATH_DASHBOARD.general.pageThree,
+        icon: ICONS.page
+      },
+      {
+        title: 'Step Four',
+        href: PATH_DASHBOARD.general.pageFour,
         icon: ICONS.page
       }
     ]

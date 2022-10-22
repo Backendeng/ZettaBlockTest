@@ -82,11 +82,11 @@ export default function PageTwo() {
     <Page title="Tap One | ZettaBlock">
       <Container maxWidth="xl">
         <Typography variant="h3" component="h1" paragraph>
-          Tap One
+          Step Two
         </Typography>
 
         <Card sx={{ mb: 3 }}>
-          <CardHeader title="Contained Buttons" />
+          <CardHeader title="show and update a user's info. click table row" />
           <CardContent>
             <Scrollbar>
               <TableContainer sx={{ minWidth: 800, mt: 3 }}>
@@ -122,17 +122,10 @@ export default function PageTwo() {
           </CardContent>
         </Card>
 
-        <MButton variant="outlined" color="warning" onClick={handleClickOpen}>
-          Form Dialogs
-        </MButton>
-
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>{dataByID.name} Info</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              please update your name, description, type here. I will send
-              updates.
-            </DialogContentText>
+            <DialogContentText>No update api was provided.</DialogContentText>
             <TextField
               autoFocus
               fullWidth
@@ -177,87 +170,6 @@ export default function PageTwo() {
             </Button>
           </DialogActions>
         </Dialog>
-
-        <Grid container spacing={5}>
-          <Grid item xs={12} md={6}>
-            <Block title="Base">
-              <Button variant="outlined" color="inherit">
-                Default
-              </Button>
-              <Button variant="outlined">Primary</Button>
-              <Button variant="outlined" disabled>
-                Disabled
-              </Button>
-              <Button variant="outlined">Link</Button>
-            </Block>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Block title="Adding Colors">
-              <MButton variant="outlined" color="inherit">
-                Default
-              </MButton>
-              <MButton variant="outlined">Primary</MButton>
-              <MButton variant="outlined" color="info">
-                Info
-              </MButton>
-              <MButton variant="outlined" color="success">
-                Success
-              </MButton>
-              <MButton variant="outlined" color="warning">
-                Warning
-              </MButton>
-              <MButton variant="outlined" color="error">
-                Error
-              </MButton>
-            </Block>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Block title="With Icon & Loading">
-              <MButton
-                variant="outlined"
-                color="error"
-                startIcon={<AlarmIcon />}
-              >
-                Icon Left
-              </MButton>
-              <MButton variant="outlined" color="error" endIcon={<AlarmIcon />}>
-                Icon Right
-              </MButton>
-              <LoadingButton
-                pending
-                variant="outlined"
-                pendingPosition="start"
-                startIcon={<AlarmIcon />}
-              >
-                Save
-              </LoadingButton>
-              <LoadingButton
-                pending
-                variant="outlined"
-                pendingPosition="end"
-                endIcon={<AlarmIcon />}
-              >
-                Save
-              </LoadingButton>
-            </Block>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Block title="Size">
-              <MButton variant="outlined" color="info" size="small">
-                Small
-              </MButton>
-              <MButton variant="outlined" color="info">
-                Medium
-              </MButton>
-              <MButton variant="outlined" color="info" size="large">
-                Large
-              </MButton>
-            </Block>
-          </Grid>
-        </Grid>
       </Container>
     </Page>
   );

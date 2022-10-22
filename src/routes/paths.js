@@ -18,9 +18,10 @@ export const PATH_HOME = {
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   general: {
-    pageOne: path(ROOTS_DASHBOARD, '/tapone'),
-    pageTwo: path(ROOTS_DASHBOARD, '/taptwo'),
-    pageThree: path(ROOTS_DASHBOARD, '/three')
+    pageOne: path(ROOTS_DASHBOARD, '/stepone'),
+    pageTwo: path(ROOTS_DASHBOARD, '/steptwo'),
+    pageThree: path(ROOTS_DASHBOARD, '/stepthree'),
+    pageFour: path(ROOTS_DASHBOARD, '/stepfour')
   },
   app: {
     root: path(ROOTS_DASHBOARD, '/drop'),
