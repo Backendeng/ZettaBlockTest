@@ -42,6 +42,16 @@ const sidebarConfig = [
         title: 'Step Four',
         href: PATH_DASHBOARD.general.pageFour,
         icon: ICONS.page
+      },
+      {
+        title: 'Step Five',
+        href: PATH_DASHBOARD.general.pageFive,
+        icon: ICONS.page
+      },
+      {
+        title: 'Step Six',
+        href: PATH_DASHBOARD.general.pageSix,
+        icon: ICONS.page
       }
     ]
   }

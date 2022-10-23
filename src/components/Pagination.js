@@ -1,9 +1,12 @@
+import { PermPhoneMsg } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getPaginationData } from '../redux/slices/zetta_reducer';
 
 function usePagination(allData, PER_PAGE) {
   const dispatch = useDispatch();
+  const [selectPage, setSelectPage] = useState(1);
+  const [limitPage, setLimitPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(allData.length / PER_PAGE);
 
@@ -25,6 +28,7 @@ function usePagination(allData, PER_PAGE) {
 
   function jump(page) {
     const pageNumber = Math.max(1, page);
+
     let limit = PER_PAGE;
     if (page < maxPage) {
       limit = PER_PAGE;
@@ -32,12 +36,22 @@ function usePagination(allData, PER_PAGE) {
       limit = allData.length - page * (PER_PAGE - 1);
     }
     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
-    console.log(page);
-    console.log(PER_PAGE);
+    setLimitPage(PER_PAGE);
+    setSelectPage(page);
+
     return dispatch(getPaginationData(page, limit));
   }
 
-  return { next, prev, jump, currentData, currentPage, maxPage };
+  return {
+    next,
+    prev,
+    jump,
+    currentData,
+    currentPage,
+    maxPage,
+    selectPage,
+    limitPage
+  };
 }
 
 export default usePagination;

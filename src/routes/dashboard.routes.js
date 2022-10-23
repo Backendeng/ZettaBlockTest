@@ -35,6 +35,16 @@ const DashboardRoutes = {
     },
     {
       exact: true,
+      path: PATH_DASHBOARD.general.pageFive,
+      component: lazy(() => import('../views/PageFive'))
+    },
+    {
+      exact: true,
+      path: PATH_DASHBOARD.general.pageSix,
+      component: lazy(() => import('../views/PageSix'))
+    },
+    {
+      exact: true,
       path: PATH_DASHBOARD.root,
       component: () => <Redirect to={PATH_DASHBOARD.general.pageOne} />
     },

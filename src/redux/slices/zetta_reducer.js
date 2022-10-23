@@ -110,6 +110,20 @@ export function getPaginationData(start, end) {
   };
 }
 
+export function getDatabySort(sort, order, start, end) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(
+        `${BackgroundAPI}apis?sortBy=${sort}&order=${order}&page=${start}&limit=${end}`
+      );
+      dispatch(slice.actions.getPaginationDataSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
 // Reducer
 export default slice.reducer;
 
