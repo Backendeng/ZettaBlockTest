@@ -34,6 +34,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import usePagination from '../components/Pagination';
+import ControllableStates from '../components/ControllableStates';
 
 import {
   getAllDatas,
@@ -58,29 +59,9 @@ export default function PageThree() {
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
   const [page, setPage] = useState(1);
-  const [begin, setBegin] = useState(1);
-  const [end, setEnd] = useState(5);
-  const PER_PAGE = 5;
-  const count = Math.ceil(allData.length / PER_PAGE);
-  const _DATA = usePagination(allData, PER_PAGE);
-  // const handleChangePagination = (e, p) => {
-  //   setPage(p);
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const maxPage = Math.ceil(allData.length / PER_PAGE);
-  //   console.log(currentPage);
-  //   function next() {
-  //     setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
-  //   }
-
-  //   function prev() {
-  //     setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
-  //   }
-
-  //   function jump(page) {
-  //     const pageNumber = Math.max(1, page);
-  //     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
-  //   }
-  // };
+  const [perPage, setPerPage] = useState(5);
+  const count = Math.ceil(allData.length / perPage);
+  const _DATA = usePagination(allData, perPage);
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -115,8 +96,7 @@ export default function PageThree() {
 
   useEffect(() => {
     dispatch(getAllDatas());
-    dispatch(getPaginationData(begin, end));
-    // usePagination(allData, PER_PAGE);
+    dispatch(getPaginationData(1, perPage));
   }, []);
 
   useEffect(() => {
@@ -328,3 +308,5 @@ export default function PageThree() {
     </Page>
   );
 }
+
+const options = [5, 10, 15, 20];
