@@ -143,10 +143,30 @@ export default function PageFive() {
                         <TableCell onClick={() => handleSort('name')}>
                           name
                         </TableCell>
-                        <TableCell align="center">type</TableCell>
-                        <TableCell align="center">description</TableCell>
-                        <TableCell align="center">createdAt</TableCell>
-                        <TableCell align="center">updatedAt</TableCell>
+                        <TableCell
+                          onClick={() => handleSort('type')}
+                          align="center"
+                        >
+                          type
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('description')}
+                          align="center"
+                        >
+                          description
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('createdAt')}
+                          align="center"
+                        >
+                          createdAt
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('updatedAt')}
+                          align="center"
+                        >
+                          updatedAt
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
