@@ -4,6 +4,9 @@ This project made by react.
 ## Site Link
 
 
+## Video
+https://www.loom.com/share/d1f5424e01c54fd29acce70a83015d15
+
 ## Screen
 ![image](https://user-images.githubusercontent.com/9028177/197392009-ceba0a0b-7988-427b-b4fb-c9be62492083.png)
 ![image](https://user-images.githubusercontent.com/9028177/197392028-cca846e8-cfd2-4279-9603-58d0cad22d74.png)
