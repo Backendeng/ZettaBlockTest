@@ -28,12 +28,11 @@ function usePagination(allData, PER_PAGE) {
 
   function jump(page) {
     const pageNumber = Math.max(1, page);
-
     let limit = PER_PAGE;
     if (page < maxPage) {
       limit = PER_PAGE;
     } else {
-      limit = allData.length - page * (PER_PAGE - 1);
+      limit = allData.length - (page - 1) * PER_PAGE;
     }
     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
     setLimitPage(PER_PAGE);

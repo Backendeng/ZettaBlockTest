@@ -46,6 +46,11 @@ const slice = createSlice({
       state.del_status = true;
     },
 
+    saveDataSuccess(state, action) {
+      state.isLoading = true;
+      state.del_status = false;
+    },
+
     // HAS ERROR
     hasError(state, action) {
       state.isLoading = false;
@@ -118,6 +123,30 @@ export function getDatabySort(sort, order, start, end) {
         `${BackgroundAPI}apis?sortBy=${sort}&order=${order}&page=${start}&limit=${end}`
       );
       dispatch(slice.actions.getPaginationDataSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function saveData(
+  nameCreate,
+  typeCreate,
+  descriptionCreate,
+  start,
+  end
+) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      await axios.post(
+        `${BackgroundAPI}apis?name=${nameCreate}&type=${typeCreate}&description=${descriptionCreate}`
+      );
+      await dispatch(slice.actions.saveDataSuccess());
+      const response = await axios.get(
+        `${BackgroundAPI}apis?page=${start}&limit=${end}`
+      );
+      await dispatch(slice.actions.getPaginationDataSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
