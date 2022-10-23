@@ -61,7 +61,7 @@ export default function PageThree() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
   const count = Math.ceil(allData.length / perPage);
-  const _DATA = usePagination(allData, perPage);
+  const _DATA = usePagination(allData, perPage, '');
 
   const handleChange = (e, p) => {
     setPage(p);
