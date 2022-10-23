@@ -79,7 +79,7 @@ export default function PageTwo() {
   }, [dataByID]);
 
   return (
-    <Page title="Tap One | ZettaBlock">
+    <Page title="Step Two | ZettaBlock">
       <Container maxWidth="xl">
         <Typography variant="h3" component="h1" paragraph>
           Step Two
@@ -125,7 +125,9 @@ export default function PageTwo() {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>{dataByID.name} Info</DialogTitle>
           <DialogContent>
-            <DialogContentText>No update api was provided.</DialogContentText>
+            <DialogContentText color="error">
+              No update api was provided.
+            </DialogContentText>
             <TextField
               autoFocus
               fullWidth
@@ -166,7 +168,7 @@ export default function PageTwo() {
               Cancel
             </Button>
             <Button onClick={handleClose} variant="contained">
-              Save
+              Update
             </Button>
           </DialogActions>
         </Dialog>

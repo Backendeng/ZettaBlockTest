@@ -6,7 +6,7 @@ import {
   getPaginationDataBySearch
 } from '../redux/slices/zetta_reducer';
 
-function usePagination(allData, PER_PAGE, search) {
+function usePagination(allData, PER_PAGE, search, sort, order) {
   const dispatch = useDispatch();
   const [selectPage, setSelectPage] = useState(1);
   const [limitPage, setLimitPage] = useState(5);
@@ -40,9 +40,15 @@ function usePagination(allData, PER_PAGE, search) {
     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
     setLimitPage(PER_PAGE);
     setSelectPage(page);
+    let orderValue = order;
+    if (order === 'desc') orderValue = 'asc';
+    else orderValue = 'desc';
 
-    if (search === '') return dispatch(getPaginationData(page, limit));
-    return dispatch(getPaginationDataBySearch(page, limit, search));
+    if (search === '')
+      return dispatch(getPaginationData(page, limit, sort, orderValue));
+    return dispatch(
+      getPaginationDataBySearch(page, limit, search, sort, orderValue)
+    );
   }
 
   return {

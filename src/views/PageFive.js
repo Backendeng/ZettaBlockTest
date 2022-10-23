@@ -51,9 +51,13 @@ function createData(name, calories, fat, carbs, protein) {
 
 export default function PageFive() {
   const dispatch = useDispatch();
-  const { allData, dataByID, isLoading, paginationData } = useSelector(
-    (state) => state.zetta
-  );
+  const {
+    allData,
+    dataByID,
+    isLoading,
+    paginationData,
+    sortstatus
+  } = useSelector((state) => state.zetta);
 
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
@@ -61,9 +65,10 @@ export default function PageFive() {
   const [type, setType] = useState('');
   const [page, setPage] = useState(1);
   const [order, setOrder] = useState('asc');
+  const [sort, setSort] = useState('');
   const [perPage, setPerPage] = useState(5);
   const count = Math.ceil(allData.length / perPage);
-  const _DATA = usePagination(allData, perPage, '');
+  const _DATA = usePagination(allData, perPage, '', sort, order);
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -96,18 +101,20 @@ export default function PageFive() {
     setOpen(false);
   };
 
-  const handleSort = (sort) => {
-    console.log(_DATA.selectPage);
-    console.log(_DATA.limitPage);
-    dispatch(getDatabySort(sort, order, _DATA.selectPage, _DATA.limitPage));
-    if (order === 'asc') setOrder('desc');
-    else setOrder('asc');
+  const handleSort = (sort1) => {
+    setSort(sort1);
+    dispatch(getDatabySort(sort1, order, _DATA.selectPage, _DATA.limitPage));
   };
 
   useEffect(() => {
     dispatch(getAllDatas());
     dispatch(getPaginationData(1, perPage));
   }, []);
+
+  useEffect(() => {
+    if (order === 'asc') setOrder('desc');
+    else setOrder('asc');
+  }, [sortstatus]);
 
   useEffect(() => {
     setName(dataByID.name);
@@ -133,11 +140,33 @@ export default function PageFive() {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell onClick={handleSort}>name</TableCell>
-                        <TableCell align="center">type</TableCell>
-                        <TableCell align="center">description</TableCell>
-                        <TableCell align="center">createdAt</TableCell>
-                        <TableCell align="center">updatedAt</TableCell>
+                        <TableCell onClick={() => handleSort('name')}>
+                          name
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('type')}
+                          align="center"
+                        >
+                          type
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('description')}
+                          align="center"
+                        >
+                          description
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('createdAt')}
+                          align="center"
+                        >
+                          createdAt
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('updatedAt')}
+                          align="center"
+                        >
+                          updatedAt
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -228,91 +257,6 @@ export default function PageFive() {
               </Button>
             </DialogActions>
           </Dialog>
-
-          <Grid container spacing={5}>
-            <Grid item xs={12} md={6}>
-              <Block title="Base">
-                <Button variant="outlined" color="inherit">
-                  Default
-                </Button>
-                <Button variant="outlined">Primary</Button>
-                <Button variant="outlined" disabled>
-                  Disabled
-                </Button>
-                <Button variant="outlined">Link</Button>
-              </Block>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Block title="Adding Colors">
-                <MButton variant="outlined" color="inherit">
-                  Default
-                </MButton>
-                <MButton variant="outlined">Primary</MButton>
-                <MButton variant="outlined" color="info">
-                  Info
-                </MButton>
-                <MButton variant="outlined" color="success">
-                  Success
-                </MButton>
-                <MButton variant="outlined" color="warning">
-                  Warning
-                </MButton>
-                <MButton variant="outlined" color="error">
-                  Error
-                </MButton>
-              </Block>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Block title="With Icon & Loading">
-                <MButton
-                  variant="outlined"
-                  color="error"
-                  startIcon={<AlarmIcon />}
-                >
-                  Icon Left
-                </MButton>
-                <MButton
-                  variant="outlined"
-                  color="error"
-                  endIcon={<AlarmIcon />}
-                >
-                  Icon Right
-                </MButton>
-                <LoadingButton
-                  pending
-                  variant="outlined"
-                  pendingPosition="start"
-                  startIcon={<AlarmIcon />}
-                >
-                  Save
-                </LoadingButton>
-                <LoadingButton
-                  pending
-                  variant="outlined"
-                  pendingPosition="end"
-                  endIcon={<AlarmIcon />}
-                >
-                  Save
-                </LoadingButton>
-              </Block>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Block title="Size">
-                <MButton variant="outlined" color="info" size="small">
-                  Small
-                </MButton>
-                <MButton variant="outlined" color="info">
-                  Medium
-                </MButton>
-                <MButton variant="outlined" color="info" size="large">
-                  Large
-                </MButton>
-              </Block>
-            </Grid>
-          </Grid>
         </Container>
       )}
     </Page>

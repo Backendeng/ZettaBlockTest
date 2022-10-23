@@ -89,7 +89,7 @@ export default function PageThree() {
   }, [dataByID]);
 
   return (
-    <Page title="Tap One | ZettaBlock">
+    <Page title="Step Three | ZettaBlock">
       {isLoading ? (
         <LoadingScreen />
       ) : (
@@ -140,7 +140,9 @@ export default function PageThree() {
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>{dataByID.name} Info</DialogTitle>
             <DialogContent>
-              <DialogContentText>No update api was provided.</DialogContentText>
+              <DialogContentText color="error">
+                No update api was provided.
+              </DialogContentText>
               <TextField
                 autoFocus
                 fullWidth
@@ -184,7 +186,7 @@ export default function PageThree() {
                 Delete
               </Button>
               <Button onClick={handleClose} variant="contained">
-                Save
+                Update
               </Button>
             </DialogActions>
           </Dialog>

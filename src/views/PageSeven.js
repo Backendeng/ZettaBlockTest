@@ -158,7 +158,7 @@ export default function PageSeven() {
   }, [dataByID]);
 
   return (
-    <Page title="Tap One | ZettaBlock">
+    <Page title="Step Seven | ZettaBlock">
       {isLoading ? (
         <LoadingScreen />
       ) : (
