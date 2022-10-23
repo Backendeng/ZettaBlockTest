@@ -183,6 +183,25 @@ export function getPaginationDataBySearch(start, end, search, sort, order) {
   };
 }
 
+export function getPaginationDataBySearchSort(start, end, search, sort, order) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(
+        `${BackgroundAPI}apis?search=${search}&sortBy=${sort}&order=${order}&page=${start}&limit=${end}`
+      );
+      const responseALLData = await axios.get(
+        `${BackgroundAPI}apis?search=${search}`
+      );
+      dispatch(slice.actions.getSortDataSuccess());
+      dispatch(slice.actions.getDataSuccess(responseALLData.data));
+      dispatch(slice.actions.getPaginationDataSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
 // Reducer
 export default slice.reducer;
 

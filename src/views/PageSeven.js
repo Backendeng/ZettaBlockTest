@@ -43,7 +43,9 @@ import {
   deleteDatabyID,
   getPaginationData,
   saveData,
-  getPaginationDataBySearch
+  getDatabySort,
+  getPaginationDataBySearch,
+  getPaginationDataBySearchSort
 } from '../redux/slices/zetta_reducer';
 // ----------------------------------------------------------------------
 
@@ -53,9 +55,13 @@ function createData(name, calories, fat, carbs, protein) {
 
 export default function PageSeven() {
   const dispatch = useDispatch();
-  const { allData, dataByID, isLoading, paginationData } = useSelector(
-    (state) => state.zetta
-  );
+  const {
+    allData,
+    dataByID,
+    isLoading,
+    paginationData,
+    sortstatus
+  } = useSelector((state) => state.zetta);
 
   const [open, setOpen] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
@@ -67,10 +73,11 @@ export default function PageSeven() {
   const [typeCreate, setTypeCreate] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [order, setOrder] = useState('asc');
+  const [sort, setSort] = useState('');
   const [perPage, setPerPage] = useState(5);
   const count = Math.ceil(allData.length / perPage);
-  const _DATA = usePagination(allData, perPage, search);
-
+  const _DATA = usePagination(allData, perPage, '', sort, order);
   const handleChange = (e, p) => {
     setPage(p);
     _DATA.jump(p);
@@ -139,8 +146,26 @@ export default function PageSeven() {
   };
 
   const handleClickSearch = () => {
-    dispatch(getPaginationDataBySearch(page, perPage, search));
+    dispatch(getPaginationDataBySearch(page, perPage, search, sort, order));
   };
+
+  const handleSort = (sort1) => {
+    setSort(sort1);
+    dispatch(
+      getPaginationDataBySearchSort(
+        _DATA.selectPage,
+        _DATA.limitPage,
+        search,
+        sort1,
+        order
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (order === 'asc') setOrder('desc');
+    else setOrder('asc');
+  }, [sortstatus]);
 
   useEffect(() => {
     dispatch(getAllDatas());
@@ -199,11 +224,33 @@ export default function PageSeven() {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>name</TableCell>
-                        <TableCell align="center">type</TableCell>
-                        <TableCell align="center">description</TableCell>
-                        <TableCell align="center">createdAt</TableCell>
-                        <TableCell align="center">updatedAt</TableCell>
+                        <TableCell onClick={() => handleSort('name')}>
+                          name
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('type')}
+                          align="center"
+                        >
+                          type
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('description')}
+                          align="center"
+                        >
+                          description
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('createdAt')}
+                          align="center"
+                        >
+                          createdAt
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('updatedAt')}
+                          align="center"
+                        >
+                          updatedAt
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
