@@ -143,7 +143,7 @@ export default function PageSix() {
   }, [dataByID]);
 
   return (
-    <Page title="Tap One | ZettaBlock">
+    <Page title="Step Six | ZettaBlock">
       {isLoading ? (
         <LoadingScreen />
       ) : (

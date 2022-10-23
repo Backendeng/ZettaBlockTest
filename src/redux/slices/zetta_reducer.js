@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   error: false,
   del_status: false,
+  sortstatus: false,
   allData: [],
   paginationData: [],
   dataByID: {}
@@ -44,6 +45,11 @@ const slice = createSlice({
     deleteDataByIDSuccess(state, action) {
       state.isLoading = false;
       state.del_status = true;
+    },
+
+    // successs sort.
+    getSortDataSuccess(state) {
+      state.sortstatus = !state.sortstatus;
     },
 
     saveDataSuccess(state, action) {
@@ -101,12 +107,12 @@ export function deleteDatabyID(id) {
   };
 }
 
-export function getPaginationData(start, end) {
+export function getPaginationData(start, end, sort, order) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get(
-        `${BackgroundAPI}apis?page=${start}&limit=${end}`
+        `${BackgroundAPI}apis?sortBy=${sort}&order=${order}&page=${start}&limit=${end}`
       );
       dispatch(slice.actions.getPaginationDataSuccess(response.data));
     } catch (error) {
@@ -122,7 +128,13 @@ export function getDatabySort(sort, order, start, end) {
       const response = await axios.get(
         `${BackgroundAPI}apis?sortBy=${sort}&order=${order}&page=${start}&limit=${end}`
       );
+      dispatch(slice.actions.getSortDataSuccess());
       dispatch(slice.actions.getPaginationDataSuccess(response.data));
+      const responseAllData = await axios.get(
+        `${BackgroundAPI}apis?sortBy=${sort}&order=${order}`
+      );
+      console.log(`${BackgroundAPI}apis?sortBy=${sort}&order=${order}`);
+      dispatch(slice.actions.getDataSuccess(responseAllData.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -153,16 +165,17 @@ export function saveData(
   };
 }
 
-export function getPaginationDataBySearch(start, end, search) {
+export function getPaginationDataBySearch(start, end, search, sort, order) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get(
-        `${BackgroundAPI}apis?search=${search}&page=${start}&limit=${end}`
+        `${BackgroundAPI}apis?search=${search}&sortBy=${sort}&order=${order}&page=${start}&limit=${end}`
       );
-      console.log(
-        `${BackgroundAPI}apis?search=${search}&page=${start}&limit=${end}`
+      const responseALLData = await axios.get(
+        `${BackgroundAPI}apis?search=${search}`
       );
+      dispatch(slice.actions.getDataSuccess(responseALLData.data));
       dispatch(slice.actions.getPaginationDataSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

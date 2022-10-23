@@ -49,14 +49,14 @@ export default function PageOne() {
   }, []);
 
   return (
-    <Page title="Tap One | ZettaBlock">
+    <Page title="Step One | ZettaBlock">
       <Container maxWidth="xl">
         <Typography variant="h3" component="h1" paragraph>
-          Tap One
+          Step One
         </Typography>
 
         <Card sx={{ mb: 3 }}>
-          <CardHeader title="All Data" />
+          <CardHeader title="Show All Data" />
           <CardContent>
             <Scrollbar>
               <TableContainer sx={{ minWidth: 800, mt: 3 }}>

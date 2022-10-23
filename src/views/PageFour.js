@@ -106,7 +106,7 @@ export default function PageThree() {
   }, [dataByID]);
 
   return (
-    <Page title="Tap One | ZettaBlock">
+    <Page title="Step four | ZettaBlock">
       {isLoading ? (
         <LoadingScreen />
       ) : (
