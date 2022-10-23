@@ -7,6 +7,7 @@ const initialState = {
   error: false,
   del_status: false,
   allData: [],
+  paginationData: [],
   dataByID: {}
 };
 
@@ -31,6 +32,12 @@ const slice = createSlice({
     getDataByIDSuccess(state, action) {
       state.isLoading = false;
       state.dataByID = action.payload;
+    },
+
+    // Get data by id.
+    getPaginationDataSuccess(state, action) {
+      state.isLoading = false;
+      state.paginationData = action.payload;
     },
 
     // delete data by id.
@@ -83,6 +90,20 @@ export function deleteDatabyID(id) {
       dispatch(slice.actions.startLoading());
       const response1 = await axios.get(`${BackgroundAPI}apis`);
       await dispatch(slice.actions.getDataSuccess(response1.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getPaginationData(start, end) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(
+        `${BackgroundAPI}apis?page=${start}&limit=${end}`
+      );
+      dispatch(slice.actions.getPaginationDataSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
