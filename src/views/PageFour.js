@@ -18,7 +18,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogContentText
+  DialogContentText,
+  Pagination
 } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import { useEffect, useCallback, useState } from 'react';
@@ -32,10 +33,13 @@ import LoadingScreen from '../components/LoadingScreen';
 // components
 import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
+import usePagination from '../components/Pagination';
+
 import {
   getAllDatas,
   getDatabyID,
-  deleteDatabyID
+  deleteDatabyID,
+  getPaginationData
 } from '../redux/slices/zetta_reducer';
 // ----------------------------------------------------------------------
 
@@ -45,12 +49,43 @@ function createData(name, calories, fat, carbs, protein) {
 
 export default function PageThree() {
   const dispatch = useDispatch();
-  const { allData, dataByID, isLoading } = useSelector((state) => state.zetta);
+  const { allData, dataByID, isLoading, paginationData } = useSelector(
+    (state) => state.zetta
+  );
 
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
+  const [page, setPage] = useState(1);
+  const [begin, setBegin] = useState(1);
+  const [end, setEnd] = useState(5);
+  const PER_PAGE = 5;
+  const count = Math.ceil(allData.length / PER_PAGE);
+  const _DATA = usePagination(allData, PER_PAGE);
+  // const handleChangePagination = (e, p) => {
+  //   setPage(p);
+  //   const [currentPage, setCurrentPage] = useState(1);
+  //   const maxPage = Math.ceil(allData.length / PER_PAGE);
+  //   console.log(currentPage);
+  //   function next() {
+  //     setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
+  //   }
+
+  //   function prev() {
+  //     setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
+  //   }
+
+  //   function jump(page) {
+  //     const pageNumber = Math.max(1, page);
+  //     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
+  //   }
+  // };
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
 
   const handleClickOpen = (id) => {
     dispatch(getDatabyID(id));
@@ -80,6 +115,8 @@ export default function PageThree() {
 
   useEffect(() => {
     dispatch(getAllDatas());
+    dispatch(getPaginationData(begin, end));
+    // usePagination(allData, PER_PAGE);
   }, []);
 
   useEffect(() => {
@@ -114,7 +151,7 @@ export default function PageThree() {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {allData.map((row) => (
+                      {paginationData.map((row) => (
                         <TableRow
                           key={row.name}
                           onClick={() => handleClickOpen(row.id)}
@@ -134,6 +171,19 @@ export default function PageThree() {
                   </Table>
                 </TableContainer>
               </Scrollbar>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent>
+              <Pagination
+                count={count}
+                size="large"
+                page={page}
+                variant="outlined"
+                shape="rounded"
+                onChange={handleChange}
+              />
             </CardContent>
           </Card>
 
