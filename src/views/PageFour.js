@@ -34,6 +34,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import usePagination from '../components/Pagination';
+import ControllableStates from '../components/ControllableStates';
 
 import {
   getAllDatas,
@@ -58,29 +59,9 @@ export default function PageThree() {
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
   const [page, setPage] = useState(1);
-  const [begin, setBegin] = useState(1);
-  const [end, setEnd] = useState(5);
-  const PER_PAGE = 5;
-  const count = Math.ceil(allData.length / PER_PAGE);
-  const _DATA = usePagination(allData, PER_PAGE);
-  // const handleChangePagination = (e, p) => {
-  //   setPage(p);
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const maxPage = Math.ceil(allData.length / PER_PAGE);
-  //   console.log(currentPage);
-  //   function next() {
-  //     setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
-  //   }
-
-  //   function prev() {
-  //     setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
-  //   }
-
-  //   function jump(page) {
-  //     const pageNumber = Math.max(1, page);
-  //     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
-  //   }
-  // };
+  const [perPage, setPerPage] = useState(5);
+  const count = Math.ceil(allData.length / perPage);
+  const _DATA = usePagination(allData, perPage);
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -115,8 +96,7 @@ export default function PageThree() {
 
   useEffect(() => {
     dispatch(getAllDatas());
-    dispatch(getPaginationData(begin, end));
-    // usePagination(allData, PER_PAGE);
+    dispatch(getPaginationData(1, perPage));
   }, []);
 
   useEffect(() => {
@@ -238,93 +218,10 @@ export default function PageThree() {
               </Button>
             </DialogActions>
           </Dialog>
-
-          <Grid container spacing={5}>
-            <Grid item xs={12} md={6}>
-              <Block title="Base">
-                <Button variant="outlined" color="inherit">
-                  Default
-                </Button>
-                <Button variant="outlined">Primary</Button>
-                <Button variant="outlined" disabled>
-                  Disabled
-                </Button>
-                <Button variant="outlined">Link</Button>
-              </Block>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Block title="Adding Colors">
-                <MButton variant="outlined" color="inherit">
-                  Default
-                </MButton>
-                <MButton variant="outlined">Primary</MButton>
-                <MButton variant="outlined" color="info">
-                  Info
-                </MButton>
-                <MButton variant="outlined" color="success">
-                  Success
-                </MButton>
-                <MButton variant="outlined" color="warning">
-                  Warning
-                </MButton>
-                <MButton variant="outlined" color="error">
-                  Error
-                </MButton>
-              </Block>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Block title="With Icon & Loading">
-                <MButton
-                  variant="outlined"
-                  color="error"
-                  startIcon={<AlarmIcon />}
-                >
-                  Icon Left
-                </MButton>
-                <MButton
-                  variant="outlined"
-                  color="error"
-                  endIcon={<AlarmIcon />}
-                >
-                  Icon Right
-                </MButton>
-                <LoadingButton
-                  pending
-                  variant="outlined"
-                  pendingPosition="start"
-                  startIcon={<AlarmIcon />}
-                >
-                  Save
-                </LoadingButton>
-                <LoadingButton
-                  pending
-                  variant="outlined"
-                  pendingPosition="end"
-                  endIcon={<AlarmIcon />}
-                >
-                  Save
-                </LoadingButton>
-              </Block>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Block title="Size">
-                <MButton variant="outlined" color="info" size="small">
-                  Small
-                </MButton>
-                <MButton variant="outlined" color="info">
-                  Medium
-                </MButton>
-                <MButton variant="outlined" color="info" size="large">
-                  Large
-                </MButton>
-              </Block>
-            </Grid>
-          </Grid>
         </Container>
       )}
     </Page>
   );
 }
+
+const options = [5, 10, 15, 20];
