@@ -41,7 +41,8 @@ import {
   getDatabyID,
   deleteDatabyID,
   getPaginationData,
-  saveData
+  saveData,
+  getDatabySort
 } from '../redux/slices/zetta_reducer';
 // ----------------------------------------------------------------------
 
@@ -51,9 +52,13 @@ function createData(name, calories, fat, carbs, protein) {
 
 export default function PageSix() {
   const dispatch = useDispatch();
-  const { allData, dataByID, isLoading, paginationData } = useSelector(
-    (state) => state.zetta
-  );
+  const {
+    allData,
+    dataByID,
+    isLoading,
+    paginationData,
+    sortstatus
+  } = useSelector((state) => state.zetta);
 
   const [open, setOpen] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
@@ -64,9 +69,11 @@ export default function PageSix() {
   const [descriptionCreate, setDescriptionCreate] = useState('');
   const [typeCreate, setTypeCreate] = useState('');
   const [page, setPage] = useState(1);
+  const [order, setOrder] = useState('asc');
+  const [sort, setSort] = useState('');
   const [perPage, setPerPage] = useState(5);
   const count = Math.ceil(allData.length / perPage);
-  const _DATA = usePagination(allData, perPage);
+  const _DATA = usePagination(allData, perPage, '', sort, order);
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -131,6 +138,16 @@ export default function PageSix() {
     setOpenCreate(false);
   };
 
+  const handleSort = (sort1) => {
+    setSort(sort1);
+    dispatch(getDatabySort(sort1, order, _DATA.selectPage, _DATA.limitPage));
+  };
+
+  useEffect(() => {
+    if (order === 'asc') setOrder('desc');
+    else setOrder('asc');
+  }, [sortstatus]);
+
   useEffect(() => {
     dispatch(getAllDatas());
     dispatch(getPaginationData(1, perPage));
@@ -166,11 +183,33 @@ export default function PageSix() {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>name</TableCell>
-                        <TableCell align="center">type</TableCell>
-                        <TableCell align="center">description</TableCell>
-                        <TableCell align="center">createdAt</TableCell>
-                        <TableCell align="center">updatedAt</TableCell>
+                        <TableCell onClick={() => handleSort('name')}>
+                          name
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('type')}
+                          align="center"
+                        >
+                          type
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('description')}
+                          align="center"
+                        >
+                          description
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('createdAt')}
+                          align="center"
+                        >
+                          createdAt
+                        </TableCell>
+                        <TableCell
+                          onClick={() => handleSort('updatedAt')}
+                          align="center"
+                        >
+                          updatedAt
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -265,7 +304,9 @@ export default function PageSix() {
           <Dialog open={openCreate} onClose={handleClose}>
             <DialogTitle>{dataByID.name} Create Row</DialogTitle>
             <DialogContent>
-              <DialogContentText>Please input all.</DialogContentText>
+              <DialogContentText color="error">
+                Save API is not working
+              </DialogContentText>
               <TextField
                 autoFocus
                 fullWidth
