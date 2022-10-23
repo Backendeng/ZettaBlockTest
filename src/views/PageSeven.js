@@ -19,7 +19,8 @@ import {
   DialogContent,
   DialogActions,
   DialogContentText,
-  Pagination
+  Pagination,
+  Box
 } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import { useEffect, useCallback, useState } from 'react';
@@ -49,7 +50,7 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-export default function PageSix() {
+export default function PageSeven() {
   const dispatch = useDispatch();
   const { allData, dataByID, isLoading, paginationData } = useSelector(
     (state) => state.zetta
@@ -131,6 +132,8 @@ export default function PageSix() {
     setOpenCreate(false);
   };
 
+  const handleSearch = () => {};
+
   useEffect(() => {
     dispatch(getAllDatas());
     dispatch(getPaginationData(1, perPage));
@@ -149,19 +152,32 @@ export default function PageSix() {
       ) : (
         <Container maxWidth="xl">
           <Typography variant="h3" component="h1" paragraph>
-            Step Six
+            Step Seven
           </Typography>
           <Card sx={{ mb: 3 }}>
-            <CardHeader title="Create Table" />
+            <CardHeader title="Search" />
             <CardContent>
               <Scrollbar>
-                <MButton
-                  variant="outlined"
-                  color="success"
-                  onClick={handleCreateOpen}
-                >
-                  Create Row
-                </MButton>
+                <Box sx={{ display: 'flex' }}>
+                  <MButton
+                    variant="outlined"
+                    color="success"
+                    onClick={handleCreateOpen}
+                    sx={{ ml: 2 }}
+                  >
+                    Create Row
+                  </MButton>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <TextField label="" size="small" sx={{ mr: 2 }} />
+                  <MButton
+                    variant="contained"
+                    color="success"
+                    onClick={handleSearch}
+                    sx={{ mr: 2 }}
+                  >
+                    Search
+                  </MButton>
+                </Box>
                 <TableContainer sx={{ minWidth: 800, mt: 3 }}>
                   <Table>
                     <TableHead>

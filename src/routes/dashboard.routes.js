@@ -45,6 +45,11 @@ const DashboardRoutes = {
     },
     {
       exact: true,
+      path: PATH_DASHBOARD.general.pageSeven,
+      component: lazy(() => import('../views/PageSeven'))
+    },
+    {
+      exact: true,
       path: PATH_DASHBOARD.root,
       component: () => <Redirect to={PATH_DASHBOARD.general.pageOne} />
     },
@@ -65,6 +70,11 @@ const DashboardRoutes = {
       exact: true,
       path: PATH_DASHBOARD.app.pageSix,
       component: lazy(() => import('../views/PageSix'))
+    },
+    {
+      exact: true,
+      path: PATH_DASHBOARD.app.pageSeven,
+      component: lazy(() => import('../views/PageSeven'))
     },
     {
       exact: true,

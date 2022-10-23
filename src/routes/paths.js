@@ -23,7 +23,8 @@ export const PATH_DASHBOARD = {
     pageThree: path(ROOTS_DASHBOARD, '/stepthree'),
     pageFour: path(ROOTS_DASHBOARD, '/stepfour'),
     pageFive: path(ROOTS_DASHBOARD, '/stepFive'),
-    pageSix: path(ROOTS_DASHBOARD, '/stepSix')
+    pageSix: path(ROOTS_DASHBOARD, '/stepSix'),
+    pageSeven: path(ROOTS_DASHBOARD, '/stepSeven')
   },
   app: {
     root: path(ROOTS_DASHBOARD, '/drop'),
