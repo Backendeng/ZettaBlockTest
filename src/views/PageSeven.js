@@ -42,7 +42,8 @@ import {
   getDatabyID,
   deleteDatabyID,
   getPaginationData,
-  saveData
+  saveData,
+  getPaginationDataBySearch
 } from '../redux/slices/zetta_reducer';
 // ----------------------------------------------------------------------
 
@@ -64,10 +65,11 @@ export default function PageSeven() {
   const [nameCreate, setNameCreate] = useState('');
   const [descriptionCreate, setDescriptionCreate] = useState('');
   const [typeCreate, setTypeCreate] = useState('');
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
   const count = Math.ceil(allData.length / perPage);
-  const _DATA = usePagination(allData, perPage);
+  const _DATA = usePagination(allData, perPage, search);
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -132,12 +134,22 @@ export default function PageSeven() {
     setOpenCreate(false);
   };
 
-  const handleSearch = () => {};
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleClickSearch = () => {
+    dispatch(getPaginationDataBySearch(page, perPage, search));
+  };
 
   useEffect(() => {
     dispatch(getAllDatas());
     dispatch(getPaginationData(1, perPage));
   }, []);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
 
   useEffect(() => {
     setName(dataByID.name);
@@ -168,11 +180,16 @@ export default function PageSeven() {
                     Create Row
                   </MButton>
                   <Box sx={{ flexGrow: 1 }} />
-                  <TextField label="" size="small" sx={{ mr: 2 }} />
+                  <TextField
+                    size="small"
+                    sx={{ mr: 2 }}
+                    value={search}
+                    onChange={handleSearch}
+                  />
                   <MButton
                     variant="contained"
                     color="success"
-                    onClick={handleSearch}
+                    onClick={handleClickSearch}
                     sx={{ mr: 2 }}
                   >
                     Search

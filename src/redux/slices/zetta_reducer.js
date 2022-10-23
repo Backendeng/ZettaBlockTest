@@ -153,6 +153,23 @@ export function saveData(
   };
 }
 
+export function getPaginationDataBySearch(start, end, search) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(
+        `${BackgroundAPI}apis?search=${search}&page=${start}&limit=${end}`
+      );
+      console.log(
+        `${BackgroundAPI}apis?search=${search}&page=${start}&limit=${end}`
+      );
+      dispatch(slice.actions.getPaginationDataSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
 // Reducer
 export default slice.reducer;
 

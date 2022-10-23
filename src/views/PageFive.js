@@ -63,7 +63,7 @@ export default function PageFive() {
   const [order, setOrder] = useState('asc');
   const [perPage, setPerPage] = useState(5);
   const count = Math.ceil(allData.length / perPage);
-  const _DATA = usePagination(allData, perPage);
+  const _DATA = usePagination(allData, perPage, '');
 
   const handleChange = (e, p) => {
     setPage(p);
